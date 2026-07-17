@@ -1,0 +1,143 @@
+<!-- ============================= FOOTER ============================= -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__brand">
+      <span class="mark mark--cream" role="img" aria-label="Southern Cross German Shepherd Rescue emblem"></span>
+      <p>Southern Cross German Shepherd Rescue is a foster-based nonprofit organization dedicated to the rescue, rehabilitation, education, and responsible rehoming of German Shepherds.</p>
+      <p>We believe every German Shepherd deserves the chance to leave fear behind, rediscover who they are, and find the person they were meant to love.</p>
+      <p style="color:var(--gold-hi);font-style:italic">Together, we are building a stronger future for the breed &mdash; one dog at a time.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Explore</h4>
+      <a data-go="home">Home</a>
+      <a data-go="about">About</a>
+      <a data-go="foster">Foster</a>
+      <a data-go="adopt">Adopt</a>
+      <a data-go="education">Education</a>
+      <a data-go="donate">Donate</a>
+    </div>
+    <div class="footer__col">
+      <h4>Connect</h4>
+      <p style="display:flex;gap:10px;align-items:center"><svg class="ic" style="width:18px;height:18px;color:var(--gold-hi)"><use href="#i-mail"/></svg> [ contact email placeholder ]</p>
+      <p>[ phone placeholder ]</p>
+      <p>[ mailing address placeholder ]<br>Georgia &amp; the Southeast</p>
+      <div class="social" aria-label="Social media">
+        <a href="#" aria-label="Facebook"><svg class="ic"><use href="#i-fb"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg class="ic"><use href="#i-yt"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bar">
+    Southern Cross German Shepherd Rescue is a registered 501(c)(3) nonprofit organization. [ EIN / nonprofit status line placeholder ] &nbsp;&middot;&nbsp; &copy; <span id="yr"></span> Southern Cross German Shepherd Rescue. All rights reserved.
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var prefersReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Page router (client-side multi-page) ---------- */
+  var pages = document.querySelectorAll(".page");
+  var navLinks = document.querySelectorAll("[data-go]");
+  function go(name){
+    var found=false;
+    pages.forEach(function(p){
+      var on = p.getAttribute("data-page")===name;
+      p.classList.toggle("active", on);
+      if(on) found=true;
+    });
+    if(!found){ // fallback to home
+      document.querySelector('[data-page="home"]').classList.add("active");
+      name="home";
+    }
+    document.querySelectorAll(".nav__links a, .drawer a").forEach(function(a){
+      a.classList.toggle("active", a.getAttribute("data-go")===name);
+    });
+    window.scrollTo({top:0,left:0,behavior: prefersReduce ? "auto":"smooth"});
+    closeDrawer();
+    if(history.replaceState) history.replaceState(null,"","#"+name);
+    initReveal(); // re-arm reveals for the now-visible page
+  }
+  navLinks.forEach(function(el){
+    el.addEventListener("click", function(e){
+      var t = el.getAttribute("data-go");
+      if(t){ e.preventDefault(); go(t); }
+    });
+  });
+
+  /* ---------- Sticky nav state ---------- */
+  var nav = document.getElementById("nav");
+  function onScroll(){ nav.classList.toggle("scrolled", window.scrollY > 24); }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  /* ---------- Mobile drawer ---------- */
+  var drawer = document.getElementById("drawer");
+  var toggle = document.getElementById("navToggle");
+  var dclose = document.getElementById("drawerClose");
+  function openDrawer(){ drawer.classList.add("open"); toggle.setAttribute("aria-expanded","true"); }
+  function closeDrawer(){ drawer.classList.remove("open"); toggle.setAttribute("aria-expanded","false"); }
+  toggle.addEventListener("click", openDrawer);
+  dclose.addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeDrawer(); });
+
+  /* ---------- Scroll reveal (IntersectionObserver) ---------- */
+  var io;
+  function initReveal(){
+    var els = document.querySelectorAll(".page.active .reveal:not(.in-view), .page.active .seq:not(.in-view)");
+    if(prefersReduce){ els.forEach(function(el){ el.classList.add("in-view"); }); return; }
+    if(!io){
+      io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){ en.target.classList.add("in-view"); io.unobserve(en.target);
+            if(en.target.hasAttribute("data-metrics")) runCounters(en.target);
+          }
+        });
+      }, {threshold:.16, rootMargin:"0px 0px -8% 0px"});
+    }
+    els.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- Counter animation scaffolding (Phase 2/3) ---------- */
+  function runCounters(scope){
+    scope.querySelectorAll("[data-count]").forEach(function(el){
+      var target = parseInt(el.getAttribute("data-count"),10) || 0;
+      if(prefersReduce || target===0){ el.textContent = target.toLocaleString(); return; }
+      var start=null, dur=1400;
+      function step(ts){
+        if(!start) start=ts;
+        var p=Math.min((ts-start)/dur,1);
+        el.textContent = Math.floor(p*target).toLocaleString();
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  /* ---------- Adoption process accordion ---------- */
+  var steps = document.querySelectorAll("#adoptSteps .step");
+  steps.forEach(function(step){
+    var btn = step.querySelector(".step__btn");
+    var panel = step.querySelector(".step__panel");
+    btn.addEventListener("click", function(){
+      var isOpen = step.classList.contains("open");
+      steps.forEach(function(s){ s.classList.remove("open"); s.querySelector(".step__panel").style.maxHeight=null; });
+      if(!isOpen){ step.classList.add("open"); panel.style.maxHeight = panel.scrollHeight+"px"; }
+    });
+  });
+
+  /* ---------- Donate amount selector (preview) ---------- */
+  document.querySelectorAll(".amounts .amount").forEach(function(b){
+    b.addEventListener("click", function(){
+      document.querySelectorAll(".amounts .amount").forEach(function(x){x.classList.remove("sel");});
+      b.classList.add("sel");
+    });
+  });
+
+  /* ---------- init ---------- */
+  document.getElementById("yr").textContent = new Date().getFullYear();
+  var start = (location.hash||"").replace("#","");
+  if(start && document.querySelector('[data-page="'+start+'"]')) go(start); else initReveal();
+})();
+</script>
