@@ -3,8 +3,11 @@
 Build script for the Southern Cross German Shepherd Rescue prototype.
 
 It stitches the editable source in ./src into a single self-contained
-./index.html, embedding the two logo variants from ./assets as data URIs
+./preview.html, embedding the two logo variants from ./assets as data URIs
 and loading the brand fonts (Cinzel, EB Garamond, Raleway) from Google Fonts.
+
+./index.html is the hand-authored Coming Soon page and is NOT overwritten
+by this script.
 
 Usage (from the project root):
     python3 build.py
@@ -16,7 +19,7 @@ import base64, os
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "src")
 ASSETS = os.path.join(HERE, "assets")
-OUT = os.path.join(HERE, "index.html")
+OUT = os.path.join(HERE, "preview.html")
 
 def read(name):
     with open(os.path.join(SRC, name), encoding="utf-8") as f:
