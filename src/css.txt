@@ -395,6 +395,15 @@ p{margin:0 0 1.15em}
   box-shadow:0 20px 60px -20px rgba(0,0,0,.5)
 }
 
+/* ---------- About: community triptych (3-photo grid) ---------- */
+.community-triptych{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.community-triptych .ph{min-height:200px;padding:.8em;font-size:.68rem;
+  letter-spacing:.14em;border-radius:3px}
+@media(max-width:600px){
+  .community-triptych{grid-template-columns:1fr;gap:14px}
+  .community-triptych .ph{min-height:180px}
+}
+
 /* ---------- Home: community gallery (6-photo strip) ---------- */
 .community-gallery{
   display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:40px
