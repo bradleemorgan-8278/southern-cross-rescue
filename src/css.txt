@@ -1,7 +1,7 @@
 :root{
   /* Foundation */
-  --navy:#1B2A4A; --gold:#C49A2C; --gold-hi:#D4AA3C; --white:#FFFFFF;
-  --cream:#F5F2EC; --navy-2:#2C3E5E; --gsd-black:#1C1814; --tan:#B8864E;
+  --navy:#1B2A4A; --gold:#c99a3a; --gold-hi:#e0b85c; --white:#FFFFFF;
+  --cream:#f4f1ea; --navy-2:#2C3E5E; --navy-deep:#16223b; --gsd-black:#1C1814; --tan:#B8864E;
   --ink:#22324f;            /* body text on cream */
   --maxw:1180px;
   --ease:cubic-bezier(.22,.61,.36,1);
@@ -110,13 +110,14 @@ p{margin:0 0 1.15em}
 .s-navy{background:var(--navy);color:var(--cream)}
 .s-navy .eyebrow{color:var(--gold-hi)}
 .s-black{background:var(--gsd-black);color:var(--cream)}
-.s-black .eyebrow,.s-navy-2 .eyebrow{color:var(--gold-hi)}
+.s-black .eyebrow,.s-navy-2 .eyebrow,.s-navy-deep .eyebrow{color:var(--gold-hi)}
 .s-navy-2{background:var(--navy-2);color:var(--cream)}
+.s-navy-deep{background:var(--navy-deep);color:var(--cream)}
 .on-dark h1,.on-dark h2,.on-dark h3,.s-navy h1,.s-navy h2,.s-navy h3,
-.s-black h1,.s-black h2,.s-black h3{color:var(--white)}
+.s-black h1,.s-black h2,.s-black h3,.s-navy-deep h1,.s-navy-deep h2,.s-navy-deep h3{color:var(--white)}
 
 /* texture/noise overlay on dark sections */
-.s-navy::before,.s-black::before,.s-navy-2::before{content:"";position:absolute;inset:0;z-index:1;
+.s-navy::before,.s-black::before,.s-navy-2::before,.s-navy-deep::before{content:"";position:absolute;inset:0;z-index:1;
   pointer-events:none;opacity:.035;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
 
@@ -326,6 +327,60 @@ p{margin:0 0 1.15em}
 .pageintro .lede{max-width:60ch;color:rgba(245,242,236,.9);margin-top:1em}
 .pageintro .constellation{top:14%;right:5%;width:min(170px,22vw);opacity:.5}
 
+/* ---------- Donate: Fund nav strip ---------- */
+.fund-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:8px}
+.fund-nav__card{background:#fff;border:1px solid #e4ddc8;border-top:4px solid var(--gold);
+  border-radius:4px;padding:26px 24px;text-align:center;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.fund-nav__card:hover{transform:translateY(-3px);box-shadow:0 12px 32px -14px rgba(27,42,74,.25)}
+.fund-nav__card .num{font-family:"Raleway",sans-serif;font-size:.72rem;color:var(--gold);
+  letter-spacing:.24em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.fund-nav__card h4{font-family:"Cinzel",serif;font-size:1.18rem;letter-spacing:.06em;
+  color:var(--navy);margin:0 0 10px;line-height:1.25}
+.fund-nav__card p{font-size:.96rem;line-height:1.6;margin:0;color:#4a5568;font-family:"EB Garamond",serif}
+
+/* ---------- Donate: Cost list (Fund 01) ---------- */
+.cost-list{list-style:none;padding:0;margin:0}
+.cost-list li{font-size:1.02rem;padding:14px 0;border-bottom:1px solid rgba(196,154,44,.25);
+  display:flex;gap:14px;align-items:flex-start;line-height:1.55}
+.cost-list li:last-child{border-bottom:0}
+.cost-list li svg{flex:0 0 auto;width:22px;height:22px;color:var(--gold);margin-top:3px}
+
+/* ---------- Donate: transparency callout ---------- */
+.no-salary-note{background:rgba(255,255,255,.06);border-left:4px solid var(--gold-hi);
+  border-radius:0 3px 3px 0;padding:18px 22px;margin-top:24px}
+.no-salary-note p{font-size:.96rem;line-height:1.65;margin:0}
+.no-salary-note strong{color:#fff}
+
+/* ---------- Donate: Shepherds' Circle stat card (Fund 03) ---------- */
+.circle-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);
+  border-radius:4px;padding:38px 32px;text-align:center}
+.circle-stat .big{font-family:"Cinzel",serif;font-size:clamp(2.4rem,5vw,3rem);color:var(--gold-hi);
+  font-weight:700;letter-spacing:.02em;line-height:1}
+.circle-stat .small{font-family:"Raleway",sans-serif;font-size:.88rem;color:var(--cream);
+  margin-top:14px;line-height:1.5;opacity:.9}
+
+/* ---------- Donate: fund selector, amount grid, frequency toggle ---------- */
+.fund-select{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 22px}
+.fund-select__option{border:1px solid #ccc;border-radius:3px;padding:16px 14px;
+  font-family:"Raleway",sans-serif;text-align:center;cursor:pointer;
+  transition:border-color .2s ease,background .2s ease;background:#fff}
+.fund-select__option:hover{border-color:var(--gold)}
+.fund-select__option.selected{border-color:var(--gold);background:#fdf6e6}
+.fund-select__option .name{font-size:.88rem;font-weight:700;color:var(--navy);letter-spacing:.04em}
+.fund-select__option .desc{font-size:.74rem;color:#666;margin-top:5px;letter-spacing:.02em}
+
+.amount-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.amount-grid .amt{border:1px solid var(--gold);border-radius:3px;padding:14px 8px;
+  text-align:center;font-family:"Raleway",sans-serif;font-weight:700;font-size:.94rem;
+  color:var(--navy);cursor:pointer;background:#fff;transition:background .2s ease,color .2s ease}
+.amount-grid .amt.selected,.amount-grid .amt:hover{background:var(--gold);color:#fff}
+
+.freq-row{display:flex;gap:10px;margin-bottom:18px}
+.freq-row .freq-btn{flex:1;border:1px solid #ccc;border-radius:3px;padding:14px;
+  text-align:center;font-family:"Raleway",sans-serif;font-size:.86rem;color:var(--navy);
+  cursor:pointer;background:#fff;transition:background .2s ease,border-color .2s ease}
+.freq-row .freq-btn.selected,.freq-row .freq-btn:hover{border-color:var(--gold);background:#fdf6e6;font-weight:700}
+
 /* ---------- Responsive ---------- */
 @media(max-width:980px){
   .nav__links{display:none}
@@ -340,6 +395,10 @@ p{margin:0 0 1.15em}
   .dogs{grid-template-columns:1fr 1fr}
   .checklist{grid-template-columns:1fr}
 }
+@media(max-width:980px){
+  .fund-nav{grid-template-columns:1fr;gap:16px}
+  .fund-select{grid-template-columns:1fr}
+}
 @media(max-width:600px){
   body{font-size:18px}
   .cards--3,.cards--2,.topics,.impact,.metrics,.dogs{grid-template-columns:1fr}
@@ -348,6 +407,8 @@ p{margin:0 0 1.15em}
   .step__title{font-size:.98rem}
   .step__panel p{margin-left:0}
   .ghost{font-size:22vw}
+  .amount-grid{grid-template-columns:1fr 1fr}
+  .freq-row{flex-direction:column}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;scroll-behavior:auto}
