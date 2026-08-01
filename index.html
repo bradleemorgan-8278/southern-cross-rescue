@@ -396,6 +396,42 @@ p{margin:0 0 1.15em}
   cursor:pointer;background:#fff;transition:background .2s ease,border-color .2s ease}
 .freq-row .freq-btn.selected,.freq-row .freq-btn:hover{border-color:var(--gold);background:#fdf6e6;font-weight:700}
 
+/* ---------- Adopt: capacity banner ---------- */
+.capacity-banner{background:#fff;border:1px solid var(--gold);border-left:5px solid var(--gold);
+  border-radius:4px;padding:28px 32px;max-width:960px;margin:0 auto;
+  box-shadow:0 8px 24px -14px rgba(27,42,74,.16)}
+.capacity-banner p{font-size:1.02rem;line-height:1.65;margin:0 0 14px;color:var(--ink)}
+.capacity-banner p:last-child{margin-bottom:0}
+.capacity-banner strong{color:var(--navy)}
+.capacity-banner__buttons{display:flex;gap:14px;margin-top:20px;flex-wrap:wrap}
+.btn--ghost-navy{background:transparent;color:var(--navy);border-color:var(--navy)}
+.btn--ghost-navy:hover{background:var(--navy);color:var(--cream);transform:translateY(-3px)}
+
+/* ---------- Adopt: dog spotlight ---------- */
+.dog-spotlight{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);
+  align-items:start;margin-top:34px}
+.dog-photo-main{background:linear-gradient(135deg,#3a4a68,#2a3c63);border-radius:3px;
+  overflow:hidden;min-height:440px;display:flex;align-items:center;justify-content:center;
+  color:var(--gold-hi);font-family:"Raleway",sans-serif;font-size:.78rem;
+  letter-spacing:.16em;text-transform:uppercase;text-align:center;padding:1.6em;
+  border:1px dashed rgba(224,184,92,.4);line-height:1.6}
+.dog-photo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.dog-photo-strip .ph{min-height:96px;padding:.5em;font-size:.66rem;letter-spacing:.12em}
+.dog-name{font-family:"Cinzel",serif;font-size:clamp(2.2rem,4.4vw,3rem);
+  letter-spacing:.06em;color:var(--navy);margin:0 0 6px;line-height:1.05}
+.dog-meta{font-family:"Raleway",sans-serif;font-size:.82rem;color:var(--gold);
+  letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin:0 0 20px}
+.foster-adopt-tag{display:inline-block;background:var(--gold);color:var(--navy-deep);
+  font-family:"Raleway",sans-serif;font-weight:700;font-size:.72rem;
+  letter-spacing:.16em;padding:7px 14px;border-radius:2px;margin-bottom:12px;
+  text-transform:uppercase}
+.dog-cta{display:flex;gap:14px;margin-top:22px;flex-wrap:wrap}
+
+@media(max-width:980px){
+  .dog-spotlight{grid-template-columns:1fr;gap:28px}
+  .dog-photo-main{min-height:360px}
+}
+
 /* ---------- Responsive ---------- */
 @media(max-width:980px){
   .nav__links{display:none}
@@ -921,33 +957,74 @@ p{margin:0 0 1.15em}
     </div>
   </div>
 
-  <div class="section s-cream">
-    <div class="wrap wrap--narrow stack reveal">
-      <p class="lede">At Southern Cross German Shepherd Rescue, our goal isn't simply to find homes for dogs &mdash; it's to create lasting partnerships between remarkable dogs and the families who will love them for a lifetime.</p>
-      <p>Every German Shepherd who enters our care is given the opportunity to decompress, heal, and simply be a dog again. Through the dedication of our foster families, we learn each dog's unique personality, temperament, energy level, and individual needs &mdash; far beyond what could ever be seen in a shelter.</p>
-      <p>That understanding allows us to make thoughtful, informed matches based not only on lifestyle and experience, but on the connection between a dog and the family who will help them thrive.</p>
-      <p>We believe every adoption should be the beginning of a lifetime together. That's why we take the time to get it right &mdash; for the dogs, and for the people who welcome them home.</p>
-      <div class="quote reveal" style="margin-top:6px"><p>"We don't measure success by how quickly a dog leaves our care. We measure it by how confidently they begin their next chapter."</p></div>
+  <!-- CAPACITY BANNER -->
+  <div class="section s-cream" style="padding-block:clamp(40px,5vw,64px) 0">
+    <div class="wrap">
+      <div class="capacity-banner reveal">
+        <p><strong>As a foster-based rescue, the number of dogs we can rescue is directly tied to the number of foster homes we have.</strong> Right now, we're intentionally rebuilding our foster network so every dog we bring in gets the same individualized care and time to heal that our current dogs receive &mdash; which means we're able to feature one dog for adoption today.</p>
+        <p>Every new foster home means another dog gets that same chance. If you don't see the right match below, fostering is the fastest way to change that.</p>
+        <div class="capacity-banner__buttons">
+          <a class="btn btn--primary" href="#" data-go="foster">Foster a Dog</a>
+          <a class="btn btn--ghost-navy" href="#">Get Notified of New Dogs</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVAILABLE NOW — SINGLE-DOG SPOTLIGHT -->
+  <div class="section s-cream" style="padding-block:clamp(56px,6vw,96px)">
+    <div class="wrap">
+      <div class="headblock reveal">
+        <p class="eyebrow">Available Now</p>
+        <hr class="rule">
+      </div>
+      <div class="dog-spotlight">
+        <div class="reveal">
+          <div class="dog-photo-main">[ Photo &mdash; Koda, full-body, good lighting, looking at camera ]</div>
+          <div class="dog-photo-strip">
+            <div class="ph"><span>[ Playing ]</span></div>
+            <div class="ph"><span>[ Close-up ]</span></div>
+            <div class="ph"><span>[ With foster family ]</span></div>
+          </div>
+        </div>
+        <div class="stack reveal measure">
+          <h2 class="dog-name">Koda</h2>
+          <div class="dog-meta">3 years old &middot; Male &middot; Good with kids &amp; other dogs</div>
+          <p>Koda came to Southern Cross after being surrendered when his family could no longer care for him. In foster care, he's shown himself to be gentle, eager to please, and quick to bond &mdash; the kind of dog who wants nothing more than to be near his person.</p>
+          <p>He's house-trained, walks well on leash, and loves a good game of fetch. His foster family says he's happiest curled up at your feet after a long walk.</p>
+          <div>
+            <span class="foster-adopt-tag">Foster-to-Adopt Available</span>
+            <p style="font-size:.95rem;color:#555;margin-top:.5em">Not ready to commit for a lifetime just yet? You can foster Koda first, with no pressure &mdash; if it's the right fit, adopting him is always an option.</p>
+          </div>
+          <div class="dog-cta">
+            <a class="btn btn--primary" href="#apply">Start Koda's Application</a>
+            <a class="btn btn--ghost-navy" href="#">Ask About Fostering Koda First</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- ADOPTION PHILOSOPHY -->
   <div class="section s-navy">
-    <div class="wrap wrap--narrow stack reveal">
-      <div class="headblock">
-        <span class="ghost">Philosophy</span>
+    <div class="wrap">
+      <div class="headblock reveal" style="max-width:900px">
         <p class="eyebrow">Our Adoption Philosophy</p>
-        <hr class="rule" style="margin-top:14px">
+        <h2 style="font-size:clamp(1.9rem,4.2vw,2.9rem);margin:.3em 0 .55em">We believe the best adoptions aren't the fastest &mdash; they're the ones that last.</h2>
+        <hr class="rule">
       </div>
-      <p>German Shepherds are extraordinary companions. They are intelligent, deeply loyal, and eager to form lasting bonds with the people they trust. They thrive in homes that provide structure, consistency, meaningful engagement, training, and patient guidance.</p>
-      <p style="font-family:'Cinzel',serif;color:#fff;font-size:1.12rem;letter-spacing:.05em">At Southern Cross, we believe successful adoptions begin long before a dog goes home.</p>
-      <p>Each dog spends time in foster care where they have the opportunity to decompress, heal, and reveal their true personality. Our foster families help us understand not only a dog's temperament and needs, but also the type of home where they will flourish.</p>
-      <p style="border-left:2px solid var(--gold);padding-left:1em;font-style:italic;color:var(--gold-hi)">We believe the best adoptions aren't the fastest &mdash; they're the ones that last.</p>
-      <p>That's why we are committed to honest communication, thoughtful matching, and finding the right family for every dog in our care. When we make the right match, everyone benefits: the dog, the adopter, and the lifelong bond they build together.</p>
+      <div class="grid2 grid2--text" style="margin-top:34px">
+        <div class="stack reveal measure">
+          <p>German Shepherds are extraordinary companions &mdash; intelligent, deeply loyal, and eager to form lasting bonds with the people they trust. They thrive in homes that provide structure, consistency, engagement, training, and patient guidance.</p>
+        </div>
+        <div class="stack reveal measure">
+          <p>That's why we're committed to honest communication and thoughtful matching. When we make the right match, everyone benefits: the dog, the adopter, and the lifelong bond they build together.</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ADOPTION PROCESS (interactive accordion) -->
+  <!-- ADOPTION PROCESS — 7 STEP ACCORDION -->
   <div class="section s-cream">
     <div class="wrap">
       <div class="headblock center reveal" style="max-width:720px;margin-inline:auto">
@@ -965,11 +1042,30 @@ p{margin:0 0 1.15em}
         <div class="step"><button class="step__btn"><span class="step__num">06</span><span class="step__title">Adoption Approval</span><span class="step__plus"></span></button><div class="step__panel"><p>Once everyone agrees it's the right match, we finalize the adoption and welcome you officially into the Southern Cross family.</p></div></div>
         <div class="step"><button class="step__btn"><span class="step__num">07</span><span class="step__title">Lifelong Support</span><span class="step__plus"></span></button><div class="step__panel"><p>Our relationship doesn't end at adoption. We remain a resource for guidance, training questions, and support for the entire life of your dog.</p></div></div>
       </div>
+    </div>
+  </div>
 
-      <div class="ghl-embed reveal" style="margin-top:48px">
+  <!-- PULL QUOTE -->
+  <div class="section s-navy-deep" style="padding-block:clamp(56px,6vw,88px)">
+    <div class="wrap">
+      <div class="quote reveal" style="max-width:840px;margin-inline:auto">
+        <p>"We believe the best adoptions aren't the fastest &mdash; they're the ones that last."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADOPTION APPLICATION FORM -->
+  <div class="section s-cream" id="apply">
+    <div class="wrap">
+      <div class="headblock center reveal" style="max-width:720px;margin-inline:auto">
+        <p class="eyebrow">Ready to Apply?</p>
+        <h2 style="font-size:clamp(2rem,4.4vw,3rem);margin:.3em 0 .55em;color:var(--navy)">Submit an Adoption Application</h2>
+        <hr class="rule rule--center">
+      </div>
+      <div class="ghl-embed reveal" style="margin:38px auto 0;max-width:860px">
         <span class="ghl-embed__tag">GHL Form Embed</span>
         <!-- GHL FORM EMBED: Adoption Application Form goes here -->
-        <h3 class="ghl-embed__title" style="color:var(--navy)">Submit an Adoption Application</h3>
+        <h3 class="ghl-embed__title" style="color:var(--navy)">Adoption Application</h3>
         <p class="ghl-embed__note">This styled wrapper is where the native GoHighLevel <strong>Adoption Application</strong> form is inserted.</p>
         <div class="field--row">
           <div class="field"><label>First Name</label><input type="text" placeholder="Your first name"></div>
@@ -979,27 +1075,8 @@ p{margin:0 0 1.15em}
           <div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>
           <div class="field"><label>Phone</label><input type="tel" placeholder="(000) 000-0000"></div>
         </div>
-        <div class="field"><label>Which dog are you interested in?</label><input type="text" placeholder="Dog name or 'open to recommendations'"></div>
+        <div class="field"><label>Interested In</label><input type="text" placeholder="Koda, or 'open to fostering first'"></div>
         <button class="btn btn--primary btn--lg" type="button">Submit Application</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- AVAILABLE DOGS PLACEHOLDER -->
-  <div class="section s-navy">
-    <div class="wrap">
-      <div class="headblock center reveal" style="max-width:680px;margin-inline:auto">
-        <p class="eyebrow">Meet the Dogs</p>
-        <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);margin:.3em 0 .5em">Currently Available Dogs</h2>
-        <hr class="rule rule--center">
-        <p style="margin-top:1em;color:rgba(245,242,236,.85)">This grid is populated dynamically from GoHighLevel. Each card pulls a dog's photo, name, and summary from a CRM-connected list.</p>
-      </div>
-      <!-- [Currently Available Dogs -- placeholder grid to be populated with GHL dynamic content] -->
-      <div class="dogs seq reveal" style="margin-top:42px">
-        <div class="dogcard" style="--i:0"><div class="ph"><span>[ Dog photo ]<br>800&times;800</span></div><div class="body"><b>Available Dog</b><p>Name &middot; age &middot; temperament</p></div></div>
-        <div class="dogcard" style="--i:1"><div class="ph"><span>[ Dog photo ]<br>800&times;800</span></div><div class="body"><b>Available Dog</b><p>Name &middot; age &middot; temperament</p></div></div>
-        <div class="dogcard" style="--i:2"><div class="ph"><span>[ Dog photo ]<br>800&times;800</span></div><div class="body"><b>Available Dog</b><p>Name &middot; age &middot; temperament</p></div></div>
-        <div class="dogcard" style="--i:3"><div class="ph"><span>[ Dog photo ]<br>800&times;800</span></div><div class="body"><b>Available Dog</b><p>Name &middot; age &middot; temperament</p></div></div>
       </div>
     </div>
   </div>
