@@ -56,7 +56,11 @@ body = "\n".join([
     read("page_about.html"),
     read("page_foster.html"),
     read("page_adopt.html"),
-    read("pages_edu_donate.html"),
+    # Education is paused until the content is ready. The page source is kept
+    # intact in src/page_education.html — re-enable it by uncommenting this
+    # line and restoring the nav/drawer/footer links marked EDUCATION (PAUSED).
+    # read("page_education.html"),
+    read("page_donate.html"),
     read("footer.html"),
 ])
 

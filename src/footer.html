@@ -13,7 +13,7 @@
       <a data-go="about">About</a>
       <a data-go="foster">Foster</a>
       <a data-go="adopt">Adopt</a>
-      <a data-go="education">Education</a>
+      <!-- EDUCATION (PAUSED): <a data-go="education">Education</a> -->
       <a data-go="donate">Donate</a>
     </div>
     <div class="footer__col">
@@ -125,6 +125,143 @@
       if(!isOpen){ step.classList.add("open"); panel.style.maxHeight = panel.scrollHeight+"px"; }
     });
   });
+
+  /* ---------- Success stories slider ---------- */
+  document.querySelectorAll("[data-stories]").forEach(function(root){
+    var viewport = root.querySelector(".stories__viewport");
+    var slides   = root.querySelectorAll(".stories__slide");
+    var dotsWrap = root.querySelector("[data-stories-dots]");
+    var prev     = root.querySelector("[data-stories-prev]");
+    var next     = root.querySelector("[data-stories-next]");
+    if(!viewport || slides.length < 2) return;
+    var index = 0;
+
+    slides.forEach(function(_, i){
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "stories__dot" + (i===0 ? " is-active" : "");
+      dot.setAttribute("aria-label", "Go to story " + (i+1) + " of " + slides.length);
+      dot.addEventListener("click", function(){ goTo(i); });
+      dotsWrap.appendChild(dot);
+    });
+    var dots = dotsWrap.querySelectorAll(".stories__dot");
+
+    function paint(i){
+      index = i;
+      dots.forEach(function(d, n){ d.classList.toggle("is-active", n===i); });
+    }
+    // Arrows and dots move the track by assigning scrollLeft directly. Animated
+    // alternatives (scrollTo with behavior:"smooth", or a rAF tween) are dropped
+    // by the browser inside a mandatory scroll-snap container and in throttled or
+    // backgrounded tabs, which leaves the slider looking frozen. A direct
+    // assignment always lands on the slide. Swiping still scrolls natively.
+    function goTo(i){
+      // clientWidth is only meaningful once the page is visible, so read it here
+      var w = viewport.clientWidth;
+      if(!w) return;
+      viewport.scrollLeft = i * w;
+      paint(i);
+    }
+    prev.addEventListener("click", function(){ goTo(index > 0 ? index-1 : slides.length-1); });
+    next.addEventListener("click", function(){ goTo(index < slides.length-1 ? index+1 : 0); });
+
+    // keep the dots in sync when the visitor swipes or uses the keyboard
+    var tick;
+    viewport.addEventListener("scroll", function(){
+      clearTimeout(tick);
+      tick = setTimeout(function(){
+        var w = viewport.clientWidth;
+        if(w) paint(Math.round(viewport.scrollLeft / w));
+      }, 90);
+    }, {passive:true});
+  });
+
+  /* ---------- Dog detail modal ---------- */
+  var dogModal = document.getElementById("dogModal");
+  if(dogModal){
+    var mdMedia  = dogModal.querySelector("[data-md-media]");
+    var mdName   = dogModal.querySelector("[data-md-name]");
+    var mdMeta   = dogModal.querySelector("[data-md-meta]");
+    var mdStory  = dogModal.querySelector("[data-md-story]");
+    var mdFA     = dogModal.querySelector("[data-md-fa]");
+    var mdFoster = dogModal.querySelector("[data-md-foster]");
+    var mdDialog = dogModal.querySelector(".dog-modal__dialog");
+    var lastFocus = null;
+
+    function fillMedia(photo, alt, name){
+      mdMedia.textContent = "";
+      if(photo){
+        var img = document.createElement("img");
+        img.src = photo;
+        img.alt = alt || name;
+        mdMedia.appendChild(img);
+      } else {
+        var ph = document.createElement("div");
+        ph.className = "ph";
+        var label = document.createElement("span");
+        label.textContent = "[ Photo — " + name + " ]";
+        ph.appendChild(label);
+        mdMedia.appendChild(ph);
+      }
+    }
+
+    function openDog(card){
+      var name  = card.getAttribute("data-name") || "";
+      var story = card.querySelector("[data-story]");
+      mdName.textContent = name;
+      mdMeta.innerHTML   = card.getAttribute("data-meta") || "";
+      mdStory.innerHTML  = story ? story.innerHTML : "";
+      fillMedia(card.getAttribute("data-photo"), card.getAttribute("data-alt"), name);
+
+      var fa = card.getAttribute("data-foster-adopt") === "true";
+      mdFA.hidden = !fa;
+      mdFoster.hidden = !fa;
+      if(fa){
+        mdFoster.textContent = "Ask About Fostering " + name + " First";
+        mdFoster.href = "mailto:hello@southerncrossgermanshepherdrescue.org"
+          + "?subject=" + encodeURIComponent("Fostering " + name);
+      }
+
+      lastFocus = document.activeElement;
+      dogModal.classList.add("is-open");
+      dogModal.setAttribute("aria-hidden","false");
+      document.body.classList.add("modal-open");
+      mdDialog.scrollTop = 0;
+      dogModal.querySelector(".dog-modal__close").focus();
+    }
+
+    function closeDog(){
+      if(!dogModal.classList.contains("is-open")) return;
+      dogModal.classList.remove("is-open");
+      dogModal.setAttribute("aria-hidden","true");
+      document.body.classList.remove("modal-open");
+      if(lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    document.querySelectorAll(".dog-card__trigger").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var card = btn.closest(".dog-card");
+        if(card) openDog(card);
+      });
+    });
+    dogModal.querySelectorAll("[data-modal-close]").forEach(function(el){
+      el.addEventListener("click", closeDog);
+    });
+
+    // Escape closes, Tab stays inside the dialog
+    document.addEventListener("keydown", function(e){
+      if(!dogModal.classList.contains("is-open")) return;
+      if(e.key === "Escape"){ closeDog(); return; }
+      if(e.key !== "Tab") return;
+      var f = mdDialog.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])');
+      var open = [];
+      f.forEach(function(el){ if(el.offsetParent !== null) open.push(el); });
+      if(!open.length) return;
+      var first = open[0], last = open[open.length-1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    });
+  }
 
   /* ---------- Donate amount selector (preview) ---------- */
   document.querySelectorAll(".amounts .amount").forEach(function(b){

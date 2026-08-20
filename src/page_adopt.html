@@ -11,50 +11,176 @@
     </div>
   </div>
 
+  <!-- ============================================================= -->
+  <!-- SUCCESS STORIES SLIDER                                        -->
+  <!-- To add a story: copy one .stories__slide block and edit it.   -->
+  <!-- Dots and arrows wire themselves up automatically.             -->
+  <!-- ============================================================= -->
+  <div class="section s-navy-deep">
+    <div class="wrap">
+      <div class="headblock reveal" style="max-width:820px">
+        <p class="eyebrow">Success Stories</p>
+        <h2 style="font-size:clamp(2rem,4.4vw,3.1rem);margin:.3em 0 .55em">Where their story started over.</h2>
+        <hr class="rule">
+      </div>
+
+      <div class="stories reveal" data-stories>
+        <div class="stories__viewport" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Adoption success stories">
+          <div class="stories__track">
+
+            <!-- SLIDE — Trooper (real photo + story) -->
+            <div class="stories__slide" role="group" aria-roledescription="slide" aria-label="Trooper">
+              <div class="stories__inner">
+                <div class="stories__media">
+                  <img src="assets/dogs/trooper/trooper-after.jpg" alt="Trooper today, thriving with the family that adopted him" loading="lazy">
+                </div>
+                <div>
+                  <span class="stories__badge">Adopted</span>
+                  <h3 class="stories__name">Trooper</h3>
+                  <p>Born with a severely disfigured leg, Trooper was considered unwanted by the breeder who saw a dog with little value. Southern Cross saw something different.</p>
+                  <p>After surgery, rehabilitation, and months in a foster home that refused to give up on him, he is a happy, thriving member of the family that chose him.</p>
+                  <p class="stories__quote">"Because every German Shepherd deserves someone who sees possibility instead of obstacles."</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE — placeholder -->
+            <div class="stories__slide" role="group" aria-roledescription="slide" aria-label="Success story placeholder">
+              <div class="stories__inner">
+                <div class="stories__media">
+                  <div class="ph"><span>[ Photo &mdash; adopted dog in their new home ]</span></div>
+                </div>
+                <div>
+                  <span class="stories__badge">Adopted</span>
+                  <h3 class="stories__name">[ Dog Name ]</h3>
+                  <p>[ Two or three sentences on where this dog came from, what they needed, and what their foster home made possible. ]</p>
+                  <p>[ A sentence about the family who adopted them and what life looks like now. ]</p>
+                  <p class="stories__quote">"[ A short line from the adopter, or a closing line about this dog. ]"</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE — placeholder -->
+            <div class="stories__slide" role="group" aria-roledescription="slide" aria-label="Success story placeholder">
+              <div class="stories__inner">
+                <div class="stories__media">
+                  <div class="ph"><span>[ Photo &mdash; adopted dog with their family ]</span></div>
+                </div>
+                <div>
+                  <span class="stories__badge">Adopted</span>
+                  <h3 class="stories__name">[ Dog Name ]</h3>
+                  <p>[ Two or three sentences on where this dog came from, what they needed, and what their foster home made possible. ]</p>
+                  <p>[ A sentence about the family who adopted them and what life looks like now. ]</p>
+                  <p class="stories__quote">"[ A short line from the adopter, or a closing line about this dog. ]"</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="stories__nav">
+          <button class="stories__arrow" type="button" data-stories-prev aria-label="Previous story"><svg aria-hidden="true"><use href="#i-chev-left"/></svg></button>
+          <div class="stories__dots" data-stories-dots></div>
+          <button class="stories__arrow" type="button" data-stories-next aria-label="Next story"><svg aria-hidden="true"><use href="#i-chev-right"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CAPACITY BANNER -->
-  <div class="section s-cream" style="padding-block:clamp(40px,5vw,64px) 0">
+  <div class="section s-cream" style="padding-block:clamp(48px,6vw,80px) 0">
     <div class="wrap">
       <div class="capacity-banner reveal">
         <p><strong>As a foster-based rescue, the number of dogs we can rescue is directly tied to the number of foster homes we have.</strong> Right now, we're intentionally rebuilding our foster network so every dog we bring in gets the same individualized care and time to heal that our current dogs receive &mdash; which means we're able to feature one dog for adoption today.</p>
         <p>Every new foster home means another dog gets that same chance. If you don't see the right match below, fostering is the fastest way to change that.</p>
         <div class="capacity-banner__buttons">
           <a class="btn btn--primary" href="#" data-go="foster">Foster a Dog</a>
-          <a class="btn btn--ghost-navy" href="#">Get Notified of New Dogs</a>
+          <a class="btn btn--ghost-navy" href="mailto:hello@southerncrossgermanshepherdrescue.org?subject=Notify%20me%20about%20new%20dogs">Get Notified of New Dogs</a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- AVAILABLE NOW — SINGLE-DOG SPOTLIGHT -->
+  <!-- ============================================================= -->
+  <!-- AVAILABLE NOW — DOG GALLERY                                   -->
+  <!--                                                               -->
+  <!-- TO ADD AN AVAILABLE DOG: copy an <article class="dog-card">   -->
+  <!-- block below and edit these five things:                       -->
+  <!--   data-name          the dog's name                           -->
+  <!--   data-meta          age · sex · temperament (one line)       -->
+  <!--   data-photo         path to ONE photo, e.g.                  -->
+  <!--                      assets/dogs/koda/koda.jpg                -->
+  <!--                      (leave empty to show a photo placeholder)-->
+  <!--   data-foster-adopt  "true" to show the Foster-to-Adopt tag   -->
+  <!--   the [data-story] paragraphs = the dog's story in the popup  -->
+  <!-- The card face and the popup both read from this one block.    -->
+  <!--                                                               -->
+  <!-- TO ADD A COMING SOON DOG: copy the .dog-card--soon block and  -->
+  <!-- change the name. It shows the greyed silhouette + watermark.  -->
+  <!-- ============================================================= -->
   <div class="section s-cream" style="padding-block:clamp(56px,6vw,96px)">
     <div class="wrap">
       <div class="headblock reveal">
         <p class="eyebrow">Available Now</p>
+        <h2 style="font-size:clamp(1.9rem,4.2vw,2.8rem);margin:.3em 0 .55em;color:var(--navy)">Meet the dogs looking for their people.</h2>
         <hr class="rule">
+        <p style="margin-top:1.1em">Select any dog to read their story and start an application.</p>
       </div>
-      <div class="dog-spotlight">
-        <div class="reveal">
-          <div class="dog-photo-main">[ Photo &mdash; Koda, full-body, good lighting, looking at camera ]</div>
-          <div class="dog-photo-strip">
-            <div class="ph"><span>[ Playing ]</span></div>
-            <div class="ph"><span>[ Close-up ]</span></div>
-            <div class="ph"><span>[ With foster family ]</span></div>
+
+      <div class="dog-gallery seq reveal">
+
+        <!-- AVAILABLE DOG -->
+        <article class="dog-card" style="--i:0"
+                 data-name="Koda"
+                 data-meta="3 years old &middot; Male &middot; Good with kids &amp; other dogs"
+                 data-photo=""
+                 data-alt="Koda, a three-year-old male German Shepherd"
+                 data-foster-adopt="true">
+          <button class="dog-card__trigger" type="button" aria-haspopup="dialog">
+            <span class="dog-card__media">
+              <span class="ph"><span>[ Photo &mdash; Koda ]</span></span>
+            </span>
+            <span class="dog-card__info">
+              <span class="dog-card__name">Koda</span>
+              <span class="dog-card__meta">3 years old &middot; Male</span>
+              <span class="dog-card__cue">View Koda's story</span>
+            </span>
+          </button>
+          <div data-story hidden>
+            <p>Koda came to Southern Cross after being surrendered when his family could no longer care for him. In foster care, he's shown himself to be gentle, eager to please, and quick to bond &mdash; the kind of dog who wants nothing more than to be near his person.</p>
+            <p>He's house-trained, walks well on leash, and loves a good game of fetch. His foster family says he's happiest curled up at your feet after a long walk.</p>
           </div>
-        </div>
-        <div class="stack reveal measure">
-          <h2 class="dog-name">Koda</h2>
-          <div class="dog-meta">3 years old &middot; Male &middot; Good with kids &amp; other dogs</div>
-          <p>Koda came to Southern Cross after being surrendered when his family could no longer care for him. In foster care, he's shown himself to be gentle, eager to please, and quick to bond &mdash; the kind of dog who wants nothing more than to be near his person.</p>
-          <p>He's house-trained, walks well on leash, and loves a good game of fetch. His foster family says he's happiest curled up at your feet after a long walk.</p>
-          <div>
-            <span class="foster-adopt-tag">Foster-to-Adopt Available</span>
-            <p style="font-size:.95rem;color:#555;margin-top:.5em">Not ready to commit for a lifetime just yet? You can foster Koda first, with no pressure &mdash; if it's the right fit, adopting him is always an option.</p>
+        </article>
+
+        <!-- COMING SOON -->
+        <article class="dog-card dog-card--soon" style="--i:1">
+          <div class="dog-card__frame">
+            <div class="dog-card__media">
+              <svg class="dog-card__silhouette" viewBox="0 0 200 200" aria-hidden="true"><use href="#i-gsd-silhouette"/></svg>
+              <span class="dog-card__watermark"><span>Coming Soon</span></span>
+            </div>
+            <div class="dog-card__info">
+              <span class="dog-card__name">[ Dog Name ]</span>
+              <span class="dog-card__meta">Coming Soon</span>
+            </div>
           </div>
-          <div class="dog-cta">
-            <a class="btn btn--primary" href="#apply">Start Koda's Application</a>
-            <a class="btn btn--ghost-navy" href="#">Ask About Fostering Koda First</a>
+        </article>
+
+        <!-- COMING SOON -->
+        <article class="dog-card dog-card--soon" style="--i:2">
+          <div class="dog-card__frame">
+            <div class="dog-card__media">
+              <svg class="dog-card__silhouette" viewBox="0 0 200 200" aria-hidden="true"><use href="#i-gsd-silhouette"/></svg>
+              <span class="dog-card__watermark"><span>Coming Soon</span></span>
+            </div>
+            <div class="dog-card__info">
+              <span class="dog-card__name">[ Dog Name ]</span>
+              <span class="dog-card__meta">Coming Soon</span>
+            </div>
           </div>
-        </div>
+        </article>
+
       </div>
     </div>
   </div>
@@ -108,30 +234,46 @@
     </div>
   </div>
 
-  <!-- ADOPTION APPLICATION FORM -->
+  <!-- ADOPTION APPLICATION — links out to the GoHighLevel form -->
   <div class="section s-cream" id="apply">
     <div class="wrap">
       <div class="headblock center reveal" style="max-width:720px;margin-inline:auto">
         <p class="eyebrow">Ready to Apply?</p>
         <h2 style="font-size:clamp(2rem,4.4vw,3rem);margin:.3em 0 .55em;color:var(--navy)">Submit an Adoption Application</h2>
         <hr class="rule rule--center">
-      </div>
-      <div class="ghl-embed reveal" style="margin:38px auto 0;max-width:860px">
-        <span class="ghl-embed__tag">GHL Form Embed</span>
-        <!-- GHL FORM EMBED: Adoption Application Form goes here -->
-        <h3 class="ghl-embed__title" style="color:var(--navy)">Adoption Application</h3>
-        <p class="ghl-embed__note">This styled wrapper is where the native GoHighLevel <strong>Adoption Application</strong> form is inserted.</p>
-        <div class="field--row">
-          <div class="field"><label>First Name</label><input type="text" placeholder="Your first name"></div>
-          <div class="field"><label>Last Name</label><input type="text" placeholder="Your last name"></div>
+        <p style="margin-top:1.2em">The application takes about ten minutes. Tell us about your home, your household, and the companion you're hoping to welcome &mdash; and our team will personally review every answer.</p>
+        <div style="margin-top:28px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+          <a class="btn btn--primary btn--lg" href="https://nonprofit.southerncrossgermanshepherdrescue.org/widget/form/BkvRCdJH2l7tfMum9Zso" target="_blank" rel="noopener">Apply to Adopt</a>
+          <a class="btn btn--ghost-navy btn--lg" href="mailto:hello@southerncrossgermanshepherdrescue.org">Questions? Contact Us</a>
         </div>
-        <div class="field--row">
-          <div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>
-          <div class="field"><label>Phone</label><input type="tel" placeholder="(000) 000-0000"></div>
-        </div>
-        <div class="field"><label>Interested In</label><input type="text" placeholder="Koda, or 'open to fostering first'"></div>
-        <button class="btn btn--primary btn--lg" type="button">Submit Application</button>
+        <p style="margin-top:18px;font-family:'Raleway',sans-serif;font-size:.76rem;letter-spacing:.06em;opacity:.72">Opens our secure application form in a new tab.</p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ============================================================= -->
+<!-- DOG DETAIL MODAL (shared by every card in the gallery)        -->
+<!-- ============================================================= -->
+<div class="dog-modal" id="dogModal" role="dialog" aria-modal="true" aria-labelledby="dogModalName" aria-hidden="true">
+  <div class="dog-modal__backdrop" data-modal-close></div>
+  <div class="dog-modal__dialog">
+    <button class="dog-modal__close" type="button" data-modal-close aria-label="Close"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+    <div class="dog-modal__grid">
+      <div class="dog-modal__media" data-md-media></div>
+      <div class="dog-modal__body">
+        <h3 class="dog-modal__name" id="dogModalName" data-md-name></h3>
+        <p class="dog-modal__meta" data-md-meta></p>
+        <div class="dog-modal__story" data-md-story></div>
+        <div data-md-fa>
+          <span class="foster-adopt-tag" style="margin-top:18px">Foster-to-Adopt Available</span>
+          <p class="dog-modal__note">Not ready to commit for a lifetime just yet? You can foster first, with no pressure &mdash; if it's the right fit, adopting is always an option.</p>
+        </div>
+        <div class="dog-cta">
+          <a class="btn btn--primary" href="https://nonprofit.southerncrossgermanshepherdrescue.org/widget/form/BkvRCdJH2l7tfMum9Zso" target="_blank" rel="noopener">Apply to Adopt</a>
+          <a class="btn btn--ghost-navy" data-md-foster href="mailto:hello@southerncrossgermanshepherdrescue.org">Ask About Fostering First</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
