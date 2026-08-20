@@ -82,7 +82,9 @@ p{margin:0 0 1.15em}
 .nav__links a:hover::after{transform:scaleX(1)}
 .nav__links a.active{color:#fff}
 .nav__links a.active::after{transform:scaleX(1)}
-.nav__cta{margin-left:6px}
+.nav__cta{margin-left:0}
+.nav__cta-group{display:flex;align-items:center;gap:10px;margin-left:6px}
+.nav__cta-group .btn{white-space:nowrap;font-size:.74rem;padding:.82em 1.25em;letter-spacing:.05em}
 .nav__toggle{display:none;background:none;border:0;cursor:pointer;width:42px;height:42px;padding:8px}
 .nav__toggle span{display:block;height:2px;background:var(--white);margin:5px 0;transition:.3s var(--ease)}
 
@@ -461,7 +463,11 @@ p{margin:0 0 1.15em}
 }
 
 /* ---------- Adopt: success stories slider ---------- */
-.stories{position:relative;margin-top:40px}
+/* Adopt front-loads the available dogs, so its hero sits tighter than the
+   other page intros to bring the gallery closer to the fold. */
+#page-adopt .pageintro{padding-top:clamp(96px,11vw,150px);padding-bottom:clamp(28px,3.4vw,44px)}
+.stories{position:relative;margin-top:28px}
+.stories__nav[hidden]{display:none}
 .stories__viewport{overflow-x:auto;scroll-snap-type:x mandatory;
   scrollbar-width:none;-ms-overflow-style:none;border-radius:3px}
 .stories__viewport::-webkit-scrollbar{display:none}
@@ -470,7 +476,7 @@ p{margin:0 0 1.15em}
 .stories__inner{display:grid;grid-template-columns:1fr 1fr;
   gap:clamp(24px,3.5vw,52px);align-items:center}
 .stories__media{border-radius:3px;overflow:hidden;background:#0f0e0c;
-  aspect-ratio:4/3;border:1px solid rgba(201,154,58,.28)}
+  aspect-ratio:16/10;max-height:330px;border:1px solid rgba(201,154,58,.28)}
 .stories__media img{width:100%;height:100%;object-fit:cover;display:block}
 .stories__media .ph{height:100%;min-height:0;border:0;border-radius:0}
 .stories__badge{display:inline-block;background:var(--gold);color:var(--navy-deep);
@@ -616,10 +622,14 @@ body.modal-open{overflow:hidden}
 }
 
 /* ---------- Responsive ---------- */
-@media(max-width:980px){
+/* The nav carries two CTAs now, so it collapses to the drawer earlier than
+   the rest of the layout does. */
+@media(max-width:1080px){
   .nav__links{display:none}
   .nav__toggle{display:block}
-  .nav__cta{display:none}
+  .nav__cta-group{display:none}
+}
+@media(max-width:980px){
   .hero__grid{grid-template-columns:1fr;gap:26px}
   .hero__badge{order:-1}
   .hero__badge .mark{width:210px;margin-top:6px}

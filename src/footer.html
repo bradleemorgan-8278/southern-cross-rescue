@@ -79,6 +79,9 @@
   function closeDrawer(){ drawer.classList.remove("open"); toggle.setAttribute("aria-expanded","false"); }
   toggle.addEventListener("click", openDrawer);
   dclose.addEventListener("click", closeDrawer);
+  // data-go links close the drawer via go(); this also covers the external
+  // application link, which would otherwise leave the drawer open behind it.
+  drawer.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", closeDrawer); });
   document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeDrawer(); });
 
   /* ---------- Scroll reveal (IntersectionObserver) ---------- */
@@ -133,15 +136,19 @@
     var dotsWrap = root.querySelector("[data-stories-dots]");
     var prev     = root.querySelector("[data-stories-prev]");
     var next     = root.querySelector("[data-stories-next]");
-    if(!viewport || slides.length < 2) return;
+    var navBar   = root.querySelector(".stories__nav");
+    if(!viewport) return;
+    // A single story needs no arrows, dots or rotation.
+    if(slides.length < 2){ if(navBar) navBar.hidden = true; return; }
     var index = 0;
+    var ROTATE_MS = 7000;
 
     slides.forEach(function(_, i){
       var dot = document.createElement("button");
       dot.type = "button";
       dot.className = "stories__dot" + (i===0 ? " is-active" : "");
       dot.setAttribute("aria-label", "Go to story " + (i+1) + " of " + slides.length);
-      dot.addEventListener("click", function(){ goTo(i); });
+      dot.addEventListener("click", function(){ goTo(i); restartRotate(); });
       dotsWrap.appendChild(dot);
     });
     var dots = dotsWrap.querySelectorAll(".stories__dot");
@@ -150,20 +157,65 @@
       index = i;
       dots.forEach(function(d, n){ d.classList.toggle("is-active", n===i); });
     }
-    // Arrows and dots move the track by assigning scrollLeft directly. Animated
-    // alternatives (scrollTo with behavior:"smooth", or a rAF tween) are dropped
-    // by the browser inside a mandatory scroll-snap container and in throttled or
-    // backgrounded tabs, which leaves the slider looking frozen. A direct
-    // assignment always lands on the slide. Swiping still scrolls natively.
+    // We tween scrollLeft ourselves instead of using scrollTo({behavior:"smooth"}),
+    // which browsers drop inside a mandatory scroll-snap container. Snapping is
+    // relaxed for the duration so intermediate frames aren't yanked back. A
+    // setTimeout watchdog force-completes the move if rAF never runs (throttled or
+    // backgrounded tabs), so the slide always lands even when it can't animate.
+    var anim = null, watchdog = null;
+    function settle(target){
+      if(anim){ cancelAnimationFrame(anim); anim = null; }
+      clearTimeout(watchdog);
+      viewport.style.scrollSnapType = "";
+      viewport.scrollLeft = target;
+    }
     function goTo(i){
       // clientWidth is only meaningful once the page is visible, so read it here
       var w = viewport.clientWidth;
       if(!w) return;
-      viewport.scrollLeft = i * w;
+      var target = i * w;
       paint(i);
+      if(anim){ cancelAnimationFrame(anim); anim = null; }
+      clearTimeout(watchdog);
+      var start = viewport.scrollLeft, dist = target - start;
+      if(!dist) return;
+      if(prefersReduce){ viewport.scrollLeft = target; return; }
+      var t0 = null, dur = 420;
+      viewport.style.scrollSnapType = "none";
+      watchdog = setTimeout(function(){ settle(target); }, dur + 300);
+      anim = requestAnimationFrame(function step(ts){
+        if(!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        var e = p < .5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2)/2;   // ease-in-out
+        viewport.scrollLeft = start + dist * e;
+        if(p < 1) anim = requestAnimationFrame(step);
+        else settle(target);
+      });
     }
-    prev.addEventListener("click", function(){ goTo(index > 0 ? index-1 : slides.length-1); });
-    next.addEventListener("click", function(){ goTo(index < slides.length-1 ? index+1 : 0); });
+
+    /* auto-rotation — pauses on hover, focus, touch and when the tab is hidden */
+    var timer = null;
+    function stopRotate(){ clearInterval(timer); timer = null; }
+    function startRotate(){
+      if(timer || prefersReduce || document.hidden) return;
+      timer = setInterval(function(){
+        goTo(index < slides.length-1 ? index+1 : 0);
+      }, ROTATE_MS);
+    }
+    function restartRotate(){ stopRotate(); startRotate(); }
+    ["mouseenter","focusin","touchstart"].forEach(function(ev){
+      root.addEventListener(ev, stopRotate, {passive:true});
+    });
+    ["mouseleave","focusout"].forEach(function(ev){
+      root.addEventListener(ev, startRotate);
+    });
+    document.addEventListener("visibilitychange", function(){
+      if(document.hidden) stopRotate(); else startRotate();
+    });
+
+    prev.addEventListener("click", function(){ goTo(index > 0 ? index-1 : slides.length-1); restartRotate(); });
+    next.addEventListener("click", function(){ goTo(index < slides.length-1 ? index+1 : 0); restartRotate(); });
+    startRotate();
 
     // keep the dots in sync when the visitor swipes or uses the keyboard
     var tick;
